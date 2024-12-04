@@ -134,3 +134,69 @@ The request body should be in JSON format and include the following fields:
 }
 ```
 ---
+
+## Endpoint: `/users/profile`
+
+### HTTP Method: `GET`
+
+### Description  
+The **`/users/profile`** endpoint retrieves the authenticated user's profile information. The user must be logged in and authenticated to access this endpoint.
+
+---
+
+### Request Requirements
+
+- **Headers**:
+  - `Authorization`: `Bearer <JWT token>`  
+
+---
+
+### Response  
+
+#### Success (200 OK)  
+
+- **Description**: Returns the authenticated user's profile details.  
+- **Response Body**:  
+
+  ```json
+  {
+    "_id": "63f71bcf12a5c1e16c4e3f91",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "johndoe@example.com",
+  }
+  ```
+---
+
+## Endpoint: `/users/logout`
+
+### HTTP Method: `GET`
+
+### Description  
+The **`/users/logout`** endpoint logs out the currently authenticated user by:  
+1. Clearing the `token` from the user's cookies.  
+2. Invalidating the token by storing it in the `DumpToken` collection, preventing its reuse.  
+
+---
+
+### Request Requirements
+
+- **Headers**:
+  - `Authorization`: `Bearer <JWT token>` (required if the token is not stored in cookies).  
+
+---
+
+### Response  
+
+#### Success (200 OK)  
+
+- **Description**: User successfully logged out.  
+- **Response Body**:  
+
+  ```json
+  {
+    "message": "Logged out successfully!"
+  }
+  ```
