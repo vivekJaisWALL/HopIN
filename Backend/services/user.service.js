@@ -7,11 +7,6 @@ const createUser= async ({
         throw new Error("All fields are mandatory!");
     }
 
-    const existingUser = await UserModel.findOne({ email });
-
-    if (existingUser) {
-        throw new Error("Email is already in use!");
-    }
 
     const user= await UserModel.create({
         fullName: {
