@@ -200,3 +200,80 @@ The **`/users/logout`** endpoint logs out the currently authenticated user by:
     "message": "Logged out successfully!"
   }
   ```
+---
+
+## **Endpoint**: Register a New Pilot (Driver)
+
+### **Route**: `/pilots/register`
+
+### **HTTP Method**: `POST`
+
+### **Description**
+This endpoint allows new pilots (drivers) to register for the HopIN platform. Pilots need to provide personal details and information about their vehicle. Once registered, they will receive a JSON Web Token (JWT) for authentication.
+
+---
+
+### **Request Body**
+
+The request body must be a JSON object with the following fields:
+
+#### **Required Fields**
+| Field                  | Type      | Description                                              | Validation                                                                 |
+|------------------------|-----------|----------------------------------------------------------|-----------------------------------------------------------------------------|
+| `email`               | `string`  | Email address of the pilot                               | Must be a valid email format                                               |
+| `fullName.firstName`  | `string`  | First name of the pilot                                  | Must be at least 3 characters long                                         |
+| `fullName.lastName`   | `string`  | Last name of the pilot                                   | Optional, but if provided, must be at least 3 characters long              |
+| `password`            | `string`  | Password for the pilot's account                        | Must be at least 6 characters long                                         |
+| `vehicle.color`       | `string`  | Vehicle color                                            | Must be at least 3 characters long                                         |
+| `vehicle.numberPlate` | `string`  | Vehicle number plate                                     | Must be at least 3 characters long                                         |
+| `vehicle.capacity`    | `integer` | Capacity of the vehicle                                  | Must be at least 1                                                        |
+| `vehicle.vehicleType` | `string`  | Type of vehicle (e.g., bike, auto, car)                 | Must be one of: `bike`, `auto`, `car`                                      |
+
+---
+
+### **Request Example**
+```json
+{
+  "fullName": {
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "email": "pilot@example.com",
+  "password": "securepassword",
+  "vehicle": {
+    "color": "Red",
+    "numberPlate": "AB1234",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+---
+### **Response**
+
+#### **Success Response (201)**
+- **Status Code**: `201 Created`
+- **Description**: Pilot registered successfully and JWT token issued.
+- **Body**:
+  ```json
+  {
+    "pilot": {
+      "_id": "63f2e1e8c0c8b3a879d9c761",
+      "fullName": {
+        "firstName": "John",
+        "lastName": "Doe"
+      },
+      "email": "pilot@example.com",
+      "vehicle": {
+        "color": "Red",
+        "numberPlate": "AB1234",
+        "capacity": 4,
+        "vehicleType": "car"
+      },
+      "_id": "6752a4df848df5108...",
+      "__v": 0,
+      "status": "inactive"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+  ```
