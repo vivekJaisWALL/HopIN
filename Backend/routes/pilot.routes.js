@@ -1,7 +1,7 @@
 import express from "express";
 const router= express.Router();
 import { body } from "express-validator";
-import { registerPilot } from "../controllers/pilot.controller.js";
+import { loginPilot, registerPilot } from "../controllers/pilot.controller.js";
 
 router.post("/register", [
     body("email").isEmail().withMessage("Invalid Email!"),
@@ -12,5 +12,10 @@ router.post("/register", [
     body("vehicle.capacity").isInt({ min: 1 }).withMessage("Vehicle capacity must be atleast 1"),
     body("vehicle.vehicleType").isIn(["bike", "auto", "car"]).withMessage("Invalid vehicle type!")
 ], registerPilot);
+
+router.post("/login", [
+    body("email").isEmail().withMessage("Invalid Email"),
+    body("password").isLength({ min: 6 }).withMessage("Password must be atleast 6 characters long!")
+], loginPilot)
 
 export default router;

@@ -32,3 +32,26 @@ export const registerPilot= async (req, res, next) => {
 
     res.status(201).json({ pilot, token });
 }
+
+export const loginPilot= async (req, res, next) => {
+    const errors= validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array()});
+    }
+
+    const { email, password }= req.body;
+
+    const pilot= await Pilot.findOne({email}).select("+password");
+    if(!pilot){
+        return res.status(401).json({ message: "Pilot does not exist, kindly register!" });
+    }
+
+    const isPasswordCorrect= await pilot.comparePassword(password);
+    if(!isPasswordCorrect){
+        return res.status(401).json({ message: "Incorrect email or password!" })
+    }
+
+    const token= pilot.generateAuthToken();
+    res.cookie("token",token);
+    res.status(200).json({ token, pilot });
+}

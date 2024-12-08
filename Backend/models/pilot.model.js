@@ -71,7 +71,7 @@ pilotSchema.methods.generateAuthToken= function(){
     return token;
 }
 
-pilotSchema.methods.comparePassword= async (password) => {
+pilotSchema.methods.comparePassword= async function (password) {
     return await bcrypt.compare(password, this.password);
 }
 
