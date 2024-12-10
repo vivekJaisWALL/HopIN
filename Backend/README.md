@@ -277,3 +277,135 @@ The request body must be a JSON object with the following fields:
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
   }
   ```
+---
+### **Route**: `/pilots/login`
+
+### HTTP Method: `POST`
+
+### Description
+This route allows a pilot(driver) to log in by providing valid credentials (email and password). On success, a JWT token is issued and stored in cookies for session management.
+
+
+### Request Body
+```json
+{
+  "email": "string (valid email format)",
+  "password": "string (min 6 characters)"
+}
+```
+---
+### **Response**
+
+#### **Success Response (200)**
+- **Status Code**: `200 OK`
+- **Description**: Pilot logged in successfully, and a JWT token is issued.
+- **Body**:
+```json
+{
+  "token": "string (JWT Token)",
+  "pilot": {
+    "_id": "string",
+    "fullName": {
+      "firstName": "string",
+      "lastName": "string"
+    },
+    "email": "string",
+    "vehicle": {
+      "color": "string",
+      "numberPlate": "string",
+      "capacity": number,
+      "vehicleType": "string"
+    },
+    "status": "string"
+  }
+}
+```
+---
+
+## **Endpoint:** `/pilots/profile`
+### **HTTP Method:** `GET`
+#### **Authentication:**` Required (JWT Token in Cookies or Authorization Header)`
+
+### **Headers:**
+| Key            | Value             | Description                      |
+|-----------------|-------------------|----------------------------------|
+| Authorization   | Bearer <token>   | JWT token for authentication.    |
+| Cookie          | token=<JWT Token>| Optional. JWT token in cookies.  |
+
+---
+
+### **Example Request:**
+
+**Using Authorization Header:**
+```http
+GET /pilots/profile HTTP/1.1
+Host: <server-host>
+Authorization: Bearer <your_jwt_token>
+```
+**Using cookies**
+
+```http
+GET /pilots/profile HTTP/1.1
+Host: <server-host>
+Cookie: token=<your_jwt_token>
+```
+---
+
+### **Response**
+#### **Success Response (200)**
+- **Status Code**: `200 OK`
+- **Description**: Successfully retrieved pilot's profile details. 
+- **Body**:
+
+```json
+{
+  "pilot": {
+    "_id": "string",
+    "fullName": {
+      "firstName": "string",
+      "lastName": "string"
+    },
+    "email": "string",
+    "vehicle": {
+      "color": "string",
+      "numberPlate": "string",
+      "capacity": number,
+      "vehicleType": "string"
+    },
+    "location": {
+      "latitude": number,
+      "longitude": number
+    },
+    "status": "string"
+  }
+}
+```
+---
+
+### **Route**: `/pilots/login`
+#### HTTP Method: `GET`
+
+#### **Authentication:** `Required (JWT Token in Cookies or Authorization Header)`
+#### **Description:** `Pilot is logged out successfully`
+
+
+### Request Body
+### **Headers:**
+| Key            | Value             | Description                      |
+|-----------------|-------------------|----------------------------------|
+| Authorization   | Bearer <token>   | JWT token for authentication.    |
+| Cookie          | token=<JWT Token>| Optional. JWT token in cookies.  |
+
+---
+
+### **Response**
+#### **Success Response (200)**
+- **Status Code**: `200 OK`
+- **Description**: Pilot logged out successfully!
+- **Body**:
+  ```json
+  {
+    "message": "Pilot logged out successfully!"
+  }
+  ```
+  ---

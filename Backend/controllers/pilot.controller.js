@@ -1,3 +1,4 @@
+import DumpToken from "../models/dumpToken.model.js";
 import Pilot from "../models/pilot.model.js";
 import createPilot from "../services/pilot.service.js";
 import { validationResult } from "express-validator";
@@ -54,4 +55,15 @@ export const loginPilot= async (req, res, next) => {
     const token= pilot.generateAuthToken();
     res.cookie("token",token);
     res.status(200).json({ token, pilot });
+}
+
+export const getPilotProfile= async (req, res, next) => {
+    return res.status(200).json({ pilot: req.pilot })
+}
+
+export const logoutPilot= async (req, res, next) => {
+    const token= req.cookies.token || res.headers.authorization?.split(" ")[1];
+    await DumpToken.create({ token });
+    res.clearCookie("token");
+    res.status(200).json({ message: "Pilot logged out successfully!" });
 }
