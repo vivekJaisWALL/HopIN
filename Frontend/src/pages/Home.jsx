@@ -1,6 +1,7 @@
 import React from "react";
 import hopinLogo from "../assets/hopinLogo.jpg";
 import homeImage from "../assets/homeImage.jpg"
+import { Link } from "react-router-dom";
 
 const Home= () => {
     return (
@@ -9,7 +10,7 @@ const Home= () => {
                 <img className="w-20 ml-8" src={hopinLogo} alt="logo"/>
                 <div className="bg-white py-4 px-4 pb-7">
                     <h2 className="text-2xl font-bold text-center">Get Started with HopIN</h2>
-                    <button className="w-full bg-black text-white py-3 rounded-md mt-5">Continue</button>
+                    <Link to="/login" className="w-full flex items-center justify-center bg-black text-white py-3 rounded-md mt-5">Continue</Link>
                 </div>
             </div>
         </div>
