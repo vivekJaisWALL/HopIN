@@ -90,8 +90,7 @@ const UserSignup= () => {
                 <p className="text-center">Already have an account? <Link to="/login" className="text-blue-600">Login here</Link></p>
             </div>
 
-            <p className="text-[10px] leading-tight">By proceeding, you concent to get calls, WhatsApp or SMS messages, 
-                including by automated means, from HopIN and its affiliates to the number provided.
+            <p className="text-[10px] leading-tight">This site is protected by reCAPTCHA and the <span className="underline">Google Privacy Policy</span> and <span className="underline">Terms of Service</span> apply.
             </p>
         </div>
     )

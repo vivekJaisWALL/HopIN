@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Home= () => {
     return (
         <div>
-            <div className="h-screen w-full bg-bottom bg-cover pt-8 flex justify-between flex-col bg-red-400" style={{backgroundImage: `url(${homeImage})`}}>
+            <div className="h-screen w-full bg-bottom bg-cover pt-8 flex justify-between flex-col" style={{backgroundImage: `url(${homeImage})`}}>
                 <img className="w-20 ml-8" src={hopinLogo} alt="logo"/>
                 <div className="bg-white py-4 px-4 pb-7">
                     <h2 className="text-2xl font-bold text-center">Get Started with HopIN</h2>
