@@ -29,7 +29,7 @@ const PilotSignup= () => {
     const handleSubmit= (e) => {
         e.preventDefault();
         setPilotData({
-            name: {
+            fullName: {
                 firstName,
                 lastName
             },
