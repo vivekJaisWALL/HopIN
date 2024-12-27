@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import hopinLogo from "../assets/hopinLogo.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserDataContext } from "../contexts/UserContext";
+import { useContext } from "react";
 
 const UserSignup= () => {
     const [ email, setEmail ]= useState("");
@@ -8,6 +11,10 @@ const UserSignup= () => {
     const [ firstName, setFirstName ]= useState("");
     const [ lastName, setLastName ]= useState("");
     const [ userData, setUserData ]= useState({});
+
+    const { user, setUser }= useContext(UserDataContext);
+
+    const navigate= useNavigate();
 
     const handleFirstName= (e) => {
         setFirstName(e.target.value)
@@ -25,7 +32,7 @@ const UserSignup= () => {
         setPassword(e.target.value)
     }
 
-    const handleSubmit= (e) => {
+    const handleSubmit= async(e) => {
         e.preventDefault();
         setUserData({
             fullName: {
@@ -35,6 +42,13 @@ const UserSignup= () => {
             email,
             password
         })
+
+        const response= await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, userData);
+        if(response.status === 201){
+            const data= response.data;
+            setUser(data.user);
+            navigate("/home")
+        }
         setFirstName("")
         setLastName("")
         setEmail("");
